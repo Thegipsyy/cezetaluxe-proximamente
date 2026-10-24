@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>Cezetaluxe | DROP-001</title>
+<meta name="description" content="Cezetaluxe. Gorras exclusivas de streetwear de lujo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Share+Tech+Mono&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /* Marca siempre oscura: mismos valores en modo claro y oscuro del visor */
+  :root, :root[data-theme="dark"] {
+    --bg: #050505;
+    --silver: #e8e9ef;
+    --silver-dim: #9a9eab;
+    --purple: #8b3dff;
+    --purple-soft: #b98cff;
+    --cyan: #6fe9ff;
+    color-scheme: dark;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--silver);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Fondo ambiental ---------- */
+  .ambient, .grain, .vignette, .spot { position: fixed; inset: 0; pointer-events: none; }
+  .ambient { overflow: hidden; z-index: 0; }
+  .ambient i { position: absolute; border-radius: 50%; will-change: transform; }
+  .ambient .a {
+    width: 80vmax; height: 80vmax; left: -28vmax; top: -34vmax;
+    background: radial-gradient(circle, rgba(124, 58, 237, .17), transparent 62%);
+    animation: drift-a 42s ease-in-out infinite alternate;
+  }
+  .ambient .b {
+    width: 90vmax; height: 90vmax; right: -40vmax; bottom: -48vmax;
+    background: radial-gradient(circle, rgba(130, 132, 150, .12), transparent 60%);
+    animation: drift-b 54s ease-in-out infinite alternate;
+  }
+  .ambient .c {
+    width: 60vmax; height: 60vmax; left: 20vw; top: 22vh;
+    background: radial-gradient(circle, rgba(255, 255, 255, .035), transparent 65%);
+    animation: drift-c 36s ease-in-out infinite alternate;
+  }
+  @keyframes drift-a { to { transform: translate3d(9vmax, 7vmax, 0) scale(1.08); } }
+  @keyframes drift-b { to { transform: translate3d(-8vmax, -6vmax, 0) scale(1.1); } }
+  @keyframes drift-c { to { transform: translate3d(-6vmax, 5vmax, 0) scale(.92); } }
+
+  .spot {
+    z-index: 0;
+    background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(157, 77, 255, .075), transparent 62%);
+  }
+  .grain {
+    z-index: 1; opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .vignette {
+    z-index: 1;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0 3px, rgba(255, 255, 255, .014) 3px 4px),
+      radial-gradient(ellipse at center, transparent 38%, rgba(0, 0, 0, .7) 100%);
+  }
+
+  /* ---------- Logo ---------- */
+  .logo {
+    position: fixed;
+    z-index: 5;
+    top: calc(env(safe-area-inset-top, 0px) + clamp(14px, 2.6vw, 34px));
+    left: clamp(16px, 3.2vw, 44px);
+    width: clamp(84px, 9.5vw, 138px);
+    opacity: 0;
+  }
+  .logo svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .logo .glow { animation: glow-pulse 5.5s ease-in-out infinite; }
+  .logo .sweep { animation: sweep 8s ease-in-out infinite; }
+  .logo .sp {
+    transform-box: fill-box; transform-origin: center;
+    opacity: 0; transform: scale(0);
+    animation: twinkle 6.5s ease-in-out infinite;
+  }
+  .logo .s2 { animation-duration: 8s;   animation-delay: 2.2s; }
+  .logo .s3 { animation-duration: 7.2s; animation-delay: 4.1s; }
+  .logo .s4 { animation-duration: 9s;   animation-delay: 5.6s; }
+  .logo .s1 { animation-delay: .9s; }
+  @keyframes glow-pulse { 0%, 100% { opacity: .5; } 50% { opacity: .95; } }
+  @keyframes sweep { 0%, 62% { transform: translateX(-70px); } 100% { transform: translateX(260px); } }
+  @keyframes twinkle {
+    0%, 66%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    78% { opacity: 1; transform: scale(1) rotate(45deg); }
+    90% { opacity: .5; transform: scale(.45) rotate(90deg); }
+  }
+
+  /* ---------- Texto central ---------- */
+  .stage {
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%; text-align: center;
+  }
+  .line { opacity: 0; will-change: filter, opacity, transform; }
+  .line + .line { margin-top: clamp(.9rem, 2.6vw, 1.8rem); }
+
+  .title {
+    font-family: 'Syncopate', 'Arial Black', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 5.6vw, 4.2rem);
+    letter-spacing: .26em;
+    line-height: 1;
+    color: var(--silver);
+    text-shadow: 0 0 28px rgba(139, 61, 255, .28);
+  }
+  .sub {
+    font-family: 'Share Tech Mono', ui-monospace, monospace;
+    font-size: clamp(.95rem, 2.6vw, 1.7rem);
+    letter-spacing: .55em;
+    line-height: 1;
+    color: var(--silver-dim);
+  }
+
+  .glitch { position: relative; display: inline-block; white-space: nowrap; }
+  .title .glitch { margin-right: -.26em; }  /* compensa el espaciado final para centrar de verdad */
+  .sub .glitch   { margin-right: -.55em; }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; inset: 0;
+    opacity: 0; pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .glitch::before { color: var(--purple); }
+  .glitch::after  { color: var(--cyan); }
+
+  .glitch.on { animation: g-main .46s steps(1, end) both; }
+  .glitch.on::before { animation: g-a .46s steps(1, end) both; }
+  .glitch.on::after  { animation: g-b .46s steps(1, end) both; }
+
+  @keyframes g-main {
+    0%   { transform: none; opacity: 1; }
+    14%  { transform: translateX(-2px) skewX(-4deg); opacity: .88; }
+    28%  { transform: translateX(2px) skewX(3deg); opacity: 1; }
+    44%  { transform: translate(-1px, 1px); opacity: .78; }
+    58%  { transform: none; opacity: 1; }
+    74%  { transform: translateX(1px) skewX(-2deg); }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes g-a {
+    0%   { opacity: .95; transform: translateX(-4px); clip-path: inset(8% 0 72% 0); }
+    20%  { transform: translateX(3px);  clip-path: inset(56% 0 18% 0); }
+    40%  { transform: translateX(-6px); clip-path: inset(30% 0 46% 0); }
+    60%  { transform: translateX(4px);  clip-path: inset(76% 0 4% 0); }
+    80%  { transform: translateX(-2px); clip-path: inset(4% 0 82% 0); }
+    100% { opacity: 0; clip-path: inset(0 0 100% 0); }
+  }
+  @keyframes g-b {
+    0%   { opacity: .8; transform: translateX(4px);  clip-path: inset(62% 0 14% 0); }
+    22%  { transform: translateX(-3px); clip-path: inset(14% 0 66% 0); }
+    44%  { transform: translateX(5px);  clip-path: inset(48% 0 30% 0); }
+    66%  { transform: translateX(-4px); clip-path: inset(2% 0 88% 0); }
+    84%  { transform: translateX(2px);  clip-path: inset(82% 0 2% 0); }
+    100% { opacity: 0; clip-path: inset(0 0 100% 0); }
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; filter: blur(18px); transform: scale(1.07); }
+    to   { opacity: 1; filter: blur(0); transform: scale(1); }
+  }
+  .ready .line, .ready .logo { animation: reveal 1.9s cubic-bezier(.2, .7, .2, 1) both; }
+  .ready .line + .line { animation-delay: .55s; }
+  .ready .logo { animation-delay: .25s; }
+
+  @media (max-width: 600px) {
+    .title { letter-spacing: .2em; }
+    .title .glitch { margin-right: -.2em; }
+    .sub { letter-spacing: .45em; }
+    .sub .glitch { margin-right: -.45em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ambient i, .logo .glow, .logo .sweep, .logo .sp { animation: none; }
+    .glitch.on, .glitch.on::before, .glitch.on::after { animation: none; }
+    .ready .line, .ready .logo { animation-duration: .01s; animation-delay: 0s; }
+  }
+</style>
+<noscript><style>.line, .logo { opacity: 1; }</style></noscript>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+  <div class="spot" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="logo">
+    <svg viewBox="0 0 180 120" role="img" aria-label="Cezetaluxe">
+      <defs>
+        <text id="mono" x="90" y="88" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="92">CZ</text>
+        <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".45" stop-color="#c3c7d4"/>
+          <stop offset=".7" stop-color="#f6f6fb"/>
+          <stop offset="1" stop-color="#aeb3c4"/>
+        </linearGradient>
+        <linearGradient id="gemfill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".55" stop-color="#d9c8ff"/>
+          <stop offset="1" stop-color="#9d6bff"/>
+        </linearGradient>
+        <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".5" stop-color="#fff" stop-opacity=".85"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="blur" x="-25%" y="-40%" width="150%" height="180%"><feGaussianBlur stdDeviation="4"/></filter>
+        <clipPath id="clipMono"><use href="#mono"/></clipPath>
+        <symbol id="gem" viewBox="0 0 20 18" overflow="visible">
+          <path d="M5 0h10l5 6-10 12L0 6z" fill="url(#gemfill)"/>
+          <path d="M0 6h20M5 0l3 6 2 12M15 0l-3 6-2 12M8 6l2-6 2 6" fill="none" stroke="#6d2bd9" stroke-opacity=".55" stroke-width=".7" stroke-linejoin="round"/>
+          <path d="M5 0h10l5 6-10 12L0 6z" fill="none" stroke="#fff" stroke-width=".9" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="spark" viewBox="-10 -10 20 20" overflow="visible">
+          <path d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10Z"/>
+        </symbol>
+      </defs>
+
+      <use class="glow" href="#mono" fill="none" stroke="#8b3dff" stroke-width="12" stroke-linejoin="round" filter="url(#blur)"/>
+      <use href="#mono" fill="#8b3dff" stroke="#8b3dff" stroke-width="9" stroke-linejoin="round"/>
+      <use href="#mono" fill="#050505" stroke="#050505" stroke-width="3.6" stroke-linejoin="round"/>
+      <use href="#mono" fill="url(#silver)"/>
+      <g clip-path="url(#clipMono)">
+        <polygon class="sweep" points="0,0 26,0 6,120 -20,120" fill="url(#sheen)"/>
+      </g>
+
+      <use href="#gem" x="18" y="26" width="13" height="12" transform="rotate(-14 24 32)"/>
+      <use href="#gem" x="92" y="10" width="9" height="8"/>
+      <use href="#gem" x="143" y="44" width="15" height="14" transform="rotate(10 150 51)"/>
+      <use href="#gem" x="52" y="92" width="10" height="9" transform="rotate(8 57 96)"/>
+      <use href="#gem" x="128" y="92" width="8" height="7"/>
+
+      <g fill="#fff">
+        <use class="sp s1" href="#spark" x="144" y="8" width="22" height="22"/>
+        <use class="sp s2" href="#spark" x="10" y="62" width="14" height="14"/>
+        <use class="sp s3" href="#spark" x="106" y="86" width="16" height="16"/>
+        <use class="sp s4" href="#spark" x="62" y="2" width="12" height="12"/>
+      </g>
+    </svg>
+  </div>
+
+  <main class="stage">
+    <h1 class="line title"><span class="glitch" data-text="PROXIMAMENTE">PROXIMAMENTE</span></h1>
+    <p class="line sub"><span class="glitch" data-text="DROP-001">DROP-001</span></p>
+  </main>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const lines = document.querySelectorAll('.line, .logo');
+  const [title, sub] = document.querySelectorAll('.glitch');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Luz ambiental que sigue suavemente al puntero
+  const spot = document.querySelector('.spot');
+  let tx = 50, ty = 50, queued = false;
+  addEventListener('pointermove', e => {
+    tx = e.clientX / innerWidth * 100; ty = e.clientY / innerHeight * 100;
+    if (queued) return; queued = true;
+    requestAnimationFrame(() => {
+      spot.style.setProperty('--mx', tx + '%'); spot.style.setProperty('--my', ty + '%'); queued = false;
+    });
+  }, { passive: true });
+
+  // Ráfagas de glitch con pausas naturales
+  const burst = (el, ms) => {
+    el.classList.add('on');
+    setTimeout(() => el.classList.remove('on'), ms);
+  };
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const loop = () => {
+    setTimeout(() => {
+      if (!document.hidden) {
+        const d = rand(260, 460), r = Math.random();
+        if (r < .5)       { burst(title, d); setTimeout(() => burst(sub, d * .8), rand(40, 160)); }
+        else if (r < .8)  { burst(title, d); }
+        else              { burst(sub, d); }
+        if (Math.random() < .28) setTimeout(() => burst(title, 180), d + 140);
+      }
+      loop();
+    }, rand(1900, 5600));
+  };
+
+  // Entrada: desenfoque -> nitidez, una vez cargadas las fuentes
+  const fonts = Promise.all([
+    document.fonts.load('700 1em Syncopate'),
+    document.fonts.load('1em "Share Tech Mono"'),
+    document.fonts.load('1em "Great Vibes"')
+  ]).catch(() => {});
+  Promise.race([fonts, new Promise(r => setTimeout(r, 2200))]).then(() => {
+    root.classList.add('ready');
+    lines.forEach(el => el.addEventListener('animationend', () => {
+      el.style.animation = 'none'; el.style.opacity = 1; el.style.filter = 'none'; el.style.transform = 'none';
+    }, { once: true }));
+    if (!reduced) setTimeout(loop, 2600);
+  });
+})();
+</script>
+</body>
+</html>
